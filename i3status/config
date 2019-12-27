@@ -1,0 +1,74 @@
+general {
+        colors = true
+        interval = 5
+}
+
+order += "disk /"
+order += "run_watch DHCP"
+order += "wireless wlp2s0"
+order += "battery 0"
+order += "volume master"
+order += "memory"
+order += "load"
+order += "tztime local"
+order += "tztime paris"
+
+wireless wlp2s0 {
+        format_up = "W: (%quality at %essid, %bitrate) %ip"
+        format_down = "W: down"
+}
+
+ethernet eth0 {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+volume master {
+       format = "♪:%volume"
+       device = "default"
+       mixer = "Master"
+       mixer_idx = 0
+}
+
+battery 0 {
+        format = "%status %percentage %remaining %emptytime"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔵 BAT"
+        status_unk = "🔴 UNK"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/wpa_supplicant*.pid"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+        hide_if_equals_localtime = true
+}
+
+tztime paris {
+        format = "%Y-%m-%d %H:%M:%S %Z"
+        timezone = "Europe/Paris"
+}
+
+load {
+        format = "%5min"
+}
+
+memory {
+        format = "%used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+        format = "Free disk space: %free"
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
