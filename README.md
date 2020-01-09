@@ -2,6 +2,11 @@
 
 Stuff I use to configure my system
 
-## About the project
+## Installation
 
-Most of the files here can be cloned into `$HOME/.config`
+```bash
+git clone https://github.com/lvndry/dotfiles
+cd dotfiles
+chmod +x install.sh
+./install.sh
+```
