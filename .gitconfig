@@ -1,0 +1,7 @@
+[user]
+	name = lvndry
+	email = monga.4landry@gmail.com
+[core]
+	editor = vim
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
