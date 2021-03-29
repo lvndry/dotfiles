@@ -4,7 +4,7 @@ export ZSH="/home/lvndry/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 
 # PATH
 export PATH=$PATH:~/bin
@@ -33,6 +33,9 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   archlinux
   git
+  docker
+  flutter
+  golang
   sublime
   compleat
   copyfile
@@ -86,6 +89,16 @@ export VISUAL='vim'
 	 mkdir -p "$@" && cd "$@"
  }
 
+# GitHub URL for current repo.
+function gurl() {
+  local remotename="${@:-origin}"
+  local remote="$(git remote -v | awk '/^'"$remotename"'.*\(push\)$/ {print $2}')"
+  [[ "$remote" ]] || return
+  local host="$(echo "$remote" | perl -pe 's/.*@//;s/:.*//')"
+  local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
+  echo "https://$host/$user_repo"
+}
+
 tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -97,19 +110,15 @@ tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 alias cdgo="cd ~/go/src/github.com"
 alias vb="vim ~/.zshrc"
 alias sb="source ~/.zshrc"
-alias a="atom"
 alias ggt="cd ~/Github"
 alias rmr="rm -rf"
-alias pb="cd ~/Github/publicbloc"
-alias pbb="cd ~/Github/publicbloc/blockchain"
-alias pbf="cd ~/Github/publicbloc/publicbloc-front"
 alias nr="npm run"
 alias iii="npm i"
 alias giti="git init && touch .gitignore"
 alias uppac="sudo pacman -Syyu"
 alias remv='sudo pacman -Rnscd'
-alias gohome='cd /home/lvndry/go/src/github.com/'
 alias mkcd='mkcd'
+alias gurl='gurl'
 alias tor='sudo chroot --userspec=tor:tor /opt/torchroot /usr/bin/tor'
 alias please='sudo $(fc -ln -1)'
 alias serve='http-server'
@@ -125,9 +134,30 @@ alias code='code'
 alias spotify='spotify &'
 alias gccf='gcc -Wall -Werror -Wextra -pedantic -std=c99'
 alias gccd='gcc -Wall -Werror -Wextra -pedantic -std=c99 -g'
+alias pacs="sudo pacman -S"
+alias pacup="sudo pacman -Syu"
+alias pacf="pacman -Ss"
+alias pacq="pacman -Q"
+alias dash="strt && cd dashboard"
+alias python="/usr/bin/python3.8"
+alias phone="cd ~/Android/Sdk/tools && emulator $@"
 
-# precmd() { print ">" }
-# export PROMPT=""
+# export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+export JAVA_HOME='/usr/lib/jvm/java-8-openjdk/jre'
+export ANDROID_SDK_ROOT='/opt/android-sdk'
+# export ANDROID_SDK_HOME='/opt/android-sdk'
+export ANDROID_AVD_HOME="$HOME/.android/avd"
+export GOPRIVATE="github.com/streamroot"
+export CHROME_EXECUTABLE='/bin/chromium'
+
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH="$PATH:/usr/bin/dart"
+export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin
+export PATH="$PATH:/sbin:/bin"
+export PATH="$PATH:$HOME/.poetry/bin"
+export PATH="$PATH:/home/lvndry/.local/bin"
+export PATH="$PATH=~/.dotnet/tools"
+
 prompt_newline() {
   if [[ -n $CURRENT_BG ]]; then
     echo -n "\%{\%k\%F{$CURRENT_BG}\%}$SEGMENT_SEPARATOR
