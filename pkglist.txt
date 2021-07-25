@@ -1,6 +1,3 @@
-# Run pacman -S - < pkglist.txt to install these packages
-# Run pacman -Qqen > pkglist.txt overwrite this file
-
 alacritty
 blueman
 deepin-screen-recorder
