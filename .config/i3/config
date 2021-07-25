@@ -9,6 +9,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -16,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 12
+font pango:Noto Sans 12
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -51,8 +52,8 @@ bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec --no-startup-id "playerctl previous"
 
 # Add gaps between windows
-gaps inner 15
-gaps outer 15
+gaps inner 10
+gaps outer 10
 
 for_window [class="^.*"] border pixel 2
 for_window [window_role="pop-up"] floating enable
@@ -64,13 +65,13 @@ bindsym $mod+x [urgent=latest] focus
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -i -p 'Arch Linux' -fn 'Ubuntu Mono:bold:pixelsize=16' -nb '#fdf6e3' -nf '#586c75' -sf '#fdf6e3' -sb '#b58900'
+bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Ubuntu Mono:bold:pixelsize=16' -p 'Arch Linux'"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -203,6 +204,8 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+bindsym $mod+r mode "resize"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -228,14 +231,24 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
 bar {
-	position top
- status_command i3status
- }
+	position bottom
+    font pango:DejaVu Sans Mono, FontAwesome 11
+    status_command i3status-rs ~/.config/i3/status_config.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
+
+bindsym $mod+$home mode "$mode_system"
 
 # Restart or shutdown or suspend by using WinKey+Pause key with meny to select option
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -252,17 +265,19 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+Mod1 mode "$mode_system"
 
 # Shortcuts to start application
 bindsym $mod+Ctrl+f exec --no-startup-id firefox
 bindsym $mod+Ctrl+c exec --no-startup-id chromium
 binddym $mod+Ctrl+s exec --no-startup-id spotify
+bindsym $mod+Ctrl+t exec --no-startup-id thunar
 
 # lock PC
 bindsym $mod+Ctrl+Delete exec $Locker, mode "default"
 
+
+
 # Brightness
-bindsym Ctrl+Up exec light -A 3
-bindsym Ctrl+Down exec light -U 3
+bindsym Ctrl+Up exec light -A 5
+bindsym Ctrl+Down exec light -U 5
 

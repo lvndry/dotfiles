@@ -1,3 +1,3 @@
 # Dotfiles
 
-Stuff I use to configure my system
+This is the configuration of my Arch Linux environment

@@ -7,14 +7,15 @@ export ZSH="/home/lvndry/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 # PATH
-export PATH=$PATH:~/bin
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+PATH=$PATH:~/bin
+PATH=$PATH:$ANDROID_HOME/emulator
+PATH="$PATH:/usr/bin/dart"
+PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin
+PATH="$PATH:/sbin:/bin"
+PATH="$PATH:$HOME/.poetry/bin"
+PATH="$PATH:/home/lvndry/.local/bin"
+PATH="$PATH:$HOME/.pyenv/3.8.10/bin"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -33,9 +34,6 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   archlinux
   git
-  docker
-  flutter
-  golang
   sublime
   compleat
   copyfile
@@ -59,30 +57,12 @@ fi
 source $ZSH/oh-my-zsh.sh
 source $HOME/.cargo/env
 
-# Streamroot NPM
-export GOPATH="$HOME/go"
 export NPMRC=$(cat ~/.npmrc)
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export VISUAL='vim'
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Custom functions
  func mkcd() {
@@ -121,17 +101,12 @@ alias mkcd='mkcd'
 alias gurl='gurl'
 alias tor='sudo chroot --userspec=tor:tor /opt/torchroot /usr/bin/tor'
 alias please='sudo $(fc -ln -1)'
-alias serve='http-server'
-alias epita="ggt && cd epita"
-alias streamroot="ggt && cd streamroot"
-alias strt="streamroot"
 alias vim-install="vim +PluginInstall +qall"
 alias lock='betterlockscreen -l dim'
 alias sublime="sublime-text"
 alias gta='git tag -a'
 alias gpt='git push --follow-tags'
 alias code='code'
-alias spotify='spotify &'
 alias gccf='gcc -Wall -Werror -Wextra -pedantic -std=c99'
 alias gccd='gcc -Wall -Werror -Wextra -pedantic -std=c99 -g'
 alias pacs="sudo pacman -S"
@@ -139,45 +114,26 @@ alias pacup="sudo pacman -Syu"
 alias pacf="pacman -Ss"
 alias pacq="pacman -Q"
 alias dash="strt && cd dashboard"
-alias python="/usr/bin/python3.8"
 alias phone="cd ~/Android/Sdk/tools && emulator $@"
 
-# export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+export GOPATH="$HOME/go"
 export JAVA_HOME='/usr/lib/jvm/java-8-openjdk/jre'
 export ANDROID_SDK_ROOT='/opt/android-sdk'
-# export ANDROID_SDK_HOME='/opt/android-sdk'
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 export GOPRIVATE="github.com/streamroot"
 export CHROME_EXECUTABLE='/bin/chromium'
 
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH="$PATH:/usr/bin/dart"
-export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin
-export PATH="$PATH:/sbin:/bin"
-export PATH="$PATH:$HOME/.poetry/bin"
-export PATH="$PATH:/home/lvndry/.local/bin"
-export PATH="$PATH=~/.dotnet/tools"
 
-prompt_newline() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n "\%{\%k\%F{$CURRENT_BG}\%}$SEGMENT_SEPARATOR
-\%{\%k\%F{blue}\%}$SEGMENT_SEPARATOR"
-  else
-    echo -n "\%{\%k\%}"
-  fi
+eval "$(pyenv init -)"
 
-  echo -n "\%{\%f\%}"
-  CURRENT_BG=''
-}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-build_prompt() {
-  RETVAL=$?
-  prompt_status
-  prompt_virtualenv
-  prompt_context
-  prompt_dir
-  prompt_git
-  prompt_hg
-  prompt_newline
-  prompt_end
-}
+NPM_PACKAGES="${HOME}/.npm-packages"
+
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"

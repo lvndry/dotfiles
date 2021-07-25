@@ -1,7 +1,11 @@
 [user]
+	email = lvndry@protonmail.com
 	name = lvndry
-	email = monga.4landry@gmail.com
-[core]
-	editor = vim
-[url "ssh://git@github.com/"]
+[pull]
+	rebase = false
+[url "git@github.com:"]
 	insteadOf = https://github.com/
+[init]
+	defaultBranch = main
+[commit]
+	gpgSign = true
