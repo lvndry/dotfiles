@@ -1,0 +1,31 @@
+# Run pacman -S - < pkglist.txt to install these packages
+# Run pacman -Qqen > pkglist.txt overwrite this file
+
+alacritty
+blueman
+deepin-screen-recorder
+docker
+dunst
+gcc
+gnome-keyring
+hsetroot
+i3-gaps
+i3status
+i3status-rust
+libarchive
+libsecret
+linux-headers
+lxappearance
+npth
+perl-anyevent-i3
+picom
+pinentry
+postgresql
+pulseaudio
+rofi
+rxvt-unicode
+scrot
+sublime-text
+viewnior
+xsel
+xsettingsd
