@@ -1,13 +1,55 @@
 {
-    "workbench.colorTheme": "Dracula Soft",
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.colorTheme": "Bearded Theme Arc",
     "editor.formatOnSave": true,
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "prettier.singleQuote": true,
+    "git.ignoreMissingGitWarning": true,
+    "gitlens.launchpad.ignoredOrganizations": [],
+    "[javascript]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
-    "security.workspace.trust.untrustedFiles": "open",
+    "[typescript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "workbench.startupEditor": "none",
     "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
-}
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "typescript.format.semicolons": "insert",
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "security.workspace.trust.untrustedFiles": "open",
+    "remote.autoForwardPortsSource": "hybrid",
+    "security.promptForLocalFileProtocolHandling": false,
+    "[python]": {
+      "editor.defaultFormatter": "charliermarsh.ruff",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      }
+    },
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.importFormat": "absolute",
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.extraPaths": [],
+    "git.openRepositoryInParentFolders": "always",
+    "makefile.configureOnOpen": true,
+    "editor.minimap.enabled": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit"
+    },
+    "typescript.suggest.autoImports": true,
+    "javascript.suggest.autoImports": true,
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "git.autofetch": true,
+    "mypy-type-checker.cwd": "${nearestConfig}",
+    "cursor.composer.queueMessageDefaultBehavior": "queue",
+    "cursor.composer.shouldAllowCustomModes": true,
+    "cursor.diffs.useCharacterLevelDiffs": true,
+    "cursor.cpp.enablePartialAccepts": true
+  }
+  
