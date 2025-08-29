@@ -27,10 +27,3 @@ fzf -v; zoxide -V; direnv version
 ## 🧰 Tools
 
 - [Add and create a SSH Key to your Github account](https://github.com/lvndry/dotfiles/tree/master/ssh)
-
-## Files
-- `macos/bootstrap.sh` – one-command installer
-- `macos/setup.sh` – main setup
-- `macos/Brewfile` – apps and CLIs
-- `shell/.zshrc`, `shell/.zprofile` – shell config
-- `ssh/github.sh`, `ssh/README.md` – SSH helper
