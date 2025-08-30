@@ -4,8 +4,9 @@ set -euo pipefail
 # Node.js Development Environment Setup
 # Usage: ./tools/node-setup.sh [node_version]
 # Example: ./tools/node-setup.sh 20
+# If no version specified, uses LTS
 
-NODE_VERSION="${1:-20}"
+NODE_VERSION="${1:-}"
 
 echo "Setting up Node.js development environment..."
 
@@ -35,10 +36,21 @@ fi
 eval "$(fnm env --use-on-cd)"
 
 # Install Node.js
-echo "📦 Installing Node.js $NODE_VERSION..."
-fnm install $NODE_VERSION
-fnm use $NODE_VERSION
-fnm default $NODE_VERSION
+if [[ -z "$NODE_VERSION" ]]; then
+    echo "📦 Installing latest LTS Node.js..."
+    fnm install --lts
+    fnm use lts/latest
+    fnm default lts/latest
+else
+    echo "📦 Installing Node.js $NODE_VERSION..."
+    fnm install $NODE_VERSION
+    fnm use $NODE_VERSION
+    fnm default $NODE_VERSION
+fi
+
+# Show installed version
+INSTALLED_VERSION=$(fnm current)
+echo "✅ Using Node.js $INSTALLED_VERSION"
 
 # Install global packages
 echo "📦 Installing global Node.js packages..."
@@ -95,7 +107,7 @@ echo "✓ Node.js development environment setup complete!"
 echo ""
 echo "Installed tools:"
 echo "  - fnm (Node.js version manager)"
-echo "  - Node.js $NODE_VERSION"
+echo "  - Node.js $INSTALLED_VERSION"
 echo "  - bun"
 echo ""
 echo "Next steps:"

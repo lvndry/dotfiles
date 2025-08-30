@@ -23,7 +23,6 @@ Configures macOS with developer-friendly settings including:
 #### `git-setup.sh`
 Sets up Git with common configurations:
 - Global user settings
-- Useful aliases (st, co, br, lg, etc.)
 - Global gitignore
 - Pre-commit hooks
 - Credential helpers
@@ -38,10 +37,7 @@ Sets up Git with common configurations:
 Installs and configures Node.js development environment:
 - fnm (Fast Node Manager)
 - Node.js LTS version
-- Global packages (npm, yarn, pnpm, bun)
-- Development tools (TypeScript, ESLint, Prettier)
-- Testing tools (Jest, Cypress)
-- Build tools (Webpack, Vite, CRA, Next.js)
+- Global packages (bun)
 - Project templates
 
 ```bash
@@ -65,8 +61,8 @@ Installs Cursor/VS Code extensions and configures settings:
 ```
 
 #### `vim-setup.sh`
-Installs Vundle and configures Vim:
-- Installs Vundle plugin manager
+Installs vim-plug and configures Vim:
+- Installs vim-plug plugin manager
 - Sets up your vimrc configuration
 - Installs useful plugins (fugitive, airline, tagbar, etc.)
 - Creates necessary vim directories
