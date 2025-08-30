@@ -1,137 +1,267 @@
-" Set compatibility to Vim only.
+" Modern Vim Configuration
+" Set compatibility to Vim only
 set nocompatible
 
-" Helps force plug-ins to load correctly when it is turned back on below.
-filetype off
+" Auto-install vim-plug if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Initialize vim-plug
+call plug#begin('~/.vim/plugged')
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+" Modern plugin manager
+Plug 'junegunn/vim-plug'
 
-" Vim Airline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Git integration
+Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
 
-" Vim tagbar
-Plugin 'majutsushi/tagbar'
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-" Vim code dark
-Plugin 'tomasiser/vim-code-dark'
+" LSP support
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
-" All of your Plugins must be added before the following line
-call vundle#end()
+" Treesitter for better syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Modern status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" File explorer
+Plug 'preservim/nerdtree'
+
+" Commenting
+Plug 'preservim/nerdcommenter'
+
+" Auto pairs
+Plug 'jiangmiao/auto-pairs'
+
+" Modern themes
+Plug 'tomasiser/vim-code-dark'
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+
+" Better search
+Plug 'easymotion/vim-easymotion'
+
+" Indent guides
+Plug 'Yggdroot/indentLine'
+
+" Git diff in gutter
+Plug 'airblade/vim-gitgutter'
+
+" Auto-completion
+Plug 'dense-analysis/ale'
+
+" Multiple cursors
+Plug 'mg979/vim-visual-multi'
+
+" Surround
+Plug 'tpope/vim-surround'
+
+" Repeat
+Plug 'tpope/vim-repeat'
+
+" End plugins
+call plug#end()
+
+" Enable filetype detection
 filetype plugin indent on
 
-" To ignore plugin indent changes, instead use:
-filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" Turn on syntax highlighting.
+" Turn on syntax highlighting
 syntax on
 
-" For plug-ins to load correctly.
-filetype plugin indent on
+" Basic settings
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
 
-" Turn off modelines
-set modelines=0
-
-" Automatically wrap text that extends beyond the screen length.
-set wrap
-
-" Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
-
-" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
-" set textwidth=79
-set formatoptions=tcqrn1
+" Indentation
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-set noshiftround
+set autoindent
+set smartindent
 
-" Display 5 lines above/below the cursor when scrolling with a mouse.
-set scrolloff=5
-
-" Fixes common backspace problems
-set backspace=indent,eol,start
-
-" Speed up scrolling in Vim
-set ttyfast
-
-" Status bar
-set laststatus=2
-
-" Display options
-set showmode
-set showcmd
-
-" Highlight matching pairs of brackets. Use the '%' character to jump between them.
-set matchpairs+=<:>
-
-" Display different types of white spaces.
-set list
-set listchars=tab:?\ ,trail:?,extends:#,nbsp:.
-
-" Show line numbers
-set number
-
-" Set status line display
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
-
-" Encoding
-set encoding=utf-8
-
-" Highlight matching search patterns
+" Search
 set hlsearch
-" Enable incremental search
 set incsearch
-" Include matching uppercase words with lowercase search term
 set ignorecase
-" Include only uppercase words with uppercase search term
 set smartcase
 
-" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
-set viminfo='100,<9999,s100
+" UI
+set number
+set relativenumber
+set cursorline
+set showmatch
+set matchtime=2
+set showmode
+set showcmd
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set t_vb=
 
-" Map the <Space> key to toggle a selected fold opened/closed.
+" Performance
+set lazyredraw
+set ttyfast
+set updatetime=300
+
+" Backup and swap
+set nobackup
+set noswapfile
+set nowritebackup
+
+" Scrolling
+set scrolloff=5
+set sidescrolloff=5
+
+" Text formatting
+set wrap
+set linebreak
+set textwidth=0
+set formatoptions=tcqrn1
+
+" Backspace
+set backspace=indent,eol,start
+
+" Status line
+set laststatus=2
+
+" Whitespace
+set list
+set listchars=tab:→\ ,trail:·,extends:»,precedes:«,nbsp:×
+
+" Folding
+set foldmethod=indent
+set foldlevel=99
+
+" Mouse
+set mouse=a
+
+" Clipboard
+set clipboard=unnamed,unnamedplus
+
+" Key mappings
+let mapleader=" "
+
+" Quick save
+nnoremap <leader>w :w<CR>
+
+" Quick quit
+nnoremap <leader>q :q<CR>
+
+" Toggle search highlighting
+nnoremap <leader>h :set hlsearch!<CR>
+
+" Clear search
+nnoremap <leader>c :nohlsearch<CR>
+
+" Better window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Resize windows
+nnoremap <leader>< <C-w><
+nnoremap <leader>> <C-w>>
+
+" FZF mappings
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>r :Rg<CR>
+
+" NERDTree
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" Git
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gp :Gpush<CR>
+
+" EasyMotion
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+
+" Paste toggle (keeping your original F2 mapping)
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Space to toggle folds (keeping your original mapping)
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
-" Automatically save and load folds
+" Auto-save folds
 autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview"
+autocmd BufWinEnter *.* silent loadview
 
-" Vim airline configuration
+" Plugin configurations
+
+" Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme='cobalt2'
+let g:airline_theme='codedark'
+let g:airline_powerline_fonts = 1
+
+" NERDTree
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = ['\.git$', '\.DS_Store$', 'node_modules$']
+
+" GitGutter
+let g:gitgutter_enabled = 1
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_lines = 0
+
+" IndentLine
+let g:indentLine_char = '│'
+let g:indentLine_color_term = 239
+
+" ALE
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'python': ['flake8'],
+\   'go': ['gofmt'],
+\}
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'python': ['black'],
+\   'go': ['gofmt'],
+\}
+let g:ale_fix_on_save = 1
+
+" FZF
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+\}
+
+" Colorscheme
+set background=dark
+colorscheme codedark
+
+" Auto-install plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
