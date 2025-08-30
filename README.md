@@ -26,4 +26,25 @@ fzf -v; zoxide -V; direnv version
 
 ## 🧰 Tools
 
+### SSH Tools
 - [Add and create a SSH Key to your Github account](https://github.com/lvndry/dotfiles/tree/master/ssh)
+
+### Development Tools
+- [Development Tools](https://github.com/lvndry/dotfiles/tree/master/tools) - Complete development environment setup
+
+**Available Scripts:**
+- `tools/macos-prefs.sh` - Configure macOS with developer-friendly settings
+- `tools/git-setup.sh` - Set up Git with aliases, global config, and hooks
+- `tools/node-setup.sh` - Install Node.js with fnm, bun, and development tools
+- `tools/vscode-setup.sh` - Install Cursor/VS Code extensions and configure settings
+- `tools/vim-setup.sh` - Install Vundle and configure Vim with plugins
+
+**Quick Setup:**
+```bash
+./tools/macos-prefs.sh
+./tools/git-setup.sh
+./tools/node-setup.sh
+./tools/vscode-setup.sh
+./tools/vim-setup.sh
+./ssh/github.sh
+```

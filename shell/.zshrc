@@ -44,16 +44,36 @@ function gurl() {
   echo "https://$host/$user_repo"
 }
 
-alias vb="vim ~/.zshrc"
-alias sb="source ~/.zshrc"
-alias rmr="rm -rf"
-alias nr="npm run"
-alias iii="npm i"
-alias giti="git init && touch .gitignore"
+## Aliases
+alias vb='vim ~/.zshrc'
+alias sb='source ~/.zshrc'
+alias rmr='rm -rf'
+alias nr='npm run'
+alias iii='npm i'
+alias bi='bun i'
+alias giti='git init && touch .gitignore'
 alias mkcd='mkcd'
 alias gurl='gurl'
 alias please='sudo $(fc -ln -1)'
 
+alias ll='eza -la'
+alias lt='eza -T'
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias top='btm'
+alias ps='procs'
+alias df='duf'
+
+## Path
+export PATH="$PATH:$HOME/.local/bin"
+
+# Faster completion
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+## SSH
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval "$(ssh-agent -s)" >/dev/null
   for key in ${HOME}/.ssh/id_*; do
@@ -62,6 +82,10 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
     fi
   done
 fi
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Homebrew-sourced extras
 if command -v brew >/dev/null 2>&1; then
@@ -72,12 +96,12 @@ if command -v brew >/dev/null 2>&1; then
   [ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
+## Zoxide
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
+## Direnv
 if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
-
-

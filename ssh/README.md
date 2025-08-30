@@ -3,7 +3,7 @@
 1. Generate and copy key to clipboard:
 
 ```bash
-./ssh/github.sh your-email@example.com personal-mac
+./ssh/github.sh
 ```
 
 2. Add the key to GitHub:

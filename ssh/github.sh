@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage: ./ssh/github.sh [email] [key_name]
-# Example: ./ssh/github.sh you@example.com personal-mac
+# Usage: ./ssh/github.sh
+# The script will prompt for email and device name
 
-EMAIL="${1:-$(git config user.email || echo "you@example.com")}"
-KEY_NAME="${2:-github-$(hostname)}"
+echo "🔑 Setting up SSH key for GitHub..."
+
+# Get email with default from Git config
+DEFAULT_EMAIL=$(git config user.email || echo "you@example.com")
+read -p "Enter your email for the SSH key [$DEFAULT_EMAIL]: " EMAIL
+EMAIL="${EMAIL:-$DEFAULT_EMAIL}"
+
+# Get device name with default from hostname
+DEFAULT_KEY_NAME="github-$(hostname)"
+read -p "Enter a name for this device/key [$DEFAULT_KEY_NAME]: " KEY_NAME
+KEY_NAME="${KEY_NAME:-$DEFAULT_KEY_NAME}"
 KEY_DIR="$HOME/.ssh"
 KEY_PATH="$KEY_DIR/${KEY_NAME}"
 
