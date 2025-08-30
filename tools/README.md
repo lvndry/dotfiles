@@ -76,6 +76,17 @@ Installs Vundle and configures Vim:
 ./tools/vim-setup.sh
 ```
 
+#### `raycast-setup.sh`
+Installs useful Raycast extensions:
+- Development tools (Homebrew, GitHub, Git, Docker, VS Code)
+- Productivity tools (Calendar, Reminders, Notes, Clipboard)
+- System utilities (Network, Battery, WiFi, Bluetooth)
+- Web tools (Search, Wikipedia, Translate, Weather)
+
+```bash
+./tools/raycast-setup.sh
+```
+
 ## Quick Setup
 
 Run all tools at once:
@@ -95,6 +106,9 @@ Run all tools at once:
 
 # Vim setup
 ./tools/vim-setup.sh
+
+# Raycast setup
+./tools/raycast-setup.sh
 ```
 
 ## Prerequisites
