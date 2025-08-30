@@ -1,6 +1,6 @@
 # Dotfiles (macOS)
 
-Super simple Mac setup for developers.
+Super simple Mac setup for developers and hackers.
 
 ## Install (fresh Mac)
 Paste this into Terminal:
@@ -37,7 +37,7 @@ fzf -v; zoxide -V; direnv version
 - `tools/git-setup.sh` - Set up Git with aliases, global config, and hooks
 - `tools/node-setup.sh` - Install Node.js with fnm, bun, and development tools
 - `tools/vscode-setup.sh` - Install Cursor/VS Code extensions and configure settings
-- `tools/vim-setup.sh` - Install Vundle and configure Vim with plugins
+- `tools/vim-setup.sh` - Install vim-plug and essential plugins
 
 **Quick Setup:**
 ```bash
