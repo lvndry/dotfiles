@@ -31,6 +31,40 @@ source $ZSH/oh-my-zsh.sh
 export VISUAL='vim'
 export EDITOR='vim'
 
+# Come and go - execute command in directory then return
+function cag() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: cag <folder> <command>"
+    echo "Example: cag /path/to/project 'npm run build'"
+    return 1
+  fi
+  
+  local target_dir="$1"
+  shift  # Remove first argument, leaving the command
+  
+  # Check if directory exists
+  if [ ! -d "$target_dir" ]; then
+    echo "Error: Directory '$target_dir' does not exist"
+    return 1
+  fi
+  
+  # Store current directory
+  local original_dir="$(pwd)"
+  
+  # Change to target directory
+  cd "$target_dir" || return 1
+  
+  # Execute the command
+  echo "Executing in $(pwd): $*"
+  "$@"
+  local exit_code=$?
+  
+  # Return to original directory
+  cd "$original_dir"
+  
+  return $exit_code
+}
+
 function mkcd() {
   mkdir -p "$@" && cd "$@"
 }
